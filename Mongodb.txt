@@ -1,0 +1,130 @@
+======================================================================
+Install mongodb on wsl
+======================================================================
+
+Even though MongoDB says that it is not supported in WSL, you can actually install it. So, I suggest you follow that steps given in MongoDB docs.
+
+Note : If you have already installed mongodb please remove all those before you install mongodb-org since it may cause some issues during installation :
+
+•	sudo dpkg --remove --force-remove-reinstreq mongo-tools
+•	sudo dpkg --remove --force-remove-reinstreq mongodb-server-core
+•	sudo apt-get --fix-broken install
+
+For installing mongodb community edition, I have added the commands below:
+
+•	wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+•	sudo apt-get install gnupg
+•	wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+•	echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+•	sudo apt-get update
+•	sudo apt-get install -y mongodb-org
+
+curl https://raw.githubusercontent.com/mongodb/mongo/master/debian/init.d | sudo tee /etc/init.d/mongodb >/dev/null
+sudo chmod +x /etc/init.d/mongodb
+sudo service mongodb status
+sudo service mongodb start
+sudo service mongodb stop
+mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+
+Now, to get mongoDB running,
+
+•	sudo nano /etc/init.d/mongod
+and paste the contents of the link into the file and save it.
+(code is also provided at the end of doc)
+# give permissions
+•	sudo chmod +x /etc/init.d/mongod
+# start the service
+•	sudo service mongod start
+Now, you can run mongo to reach the database.
+[ This script is from Stack Overflow ]
+windows subsystem for linux - Installing MongoDB in WSL - Stack Overflow
+>> Create a directory to store mongo values
+$ mkdir -p /data/db
+>> To create a database in mongodb
+use cinema
+
+======================================================================
+Mongo Commands
+======================================================================
+>> To create a database in mongodb
+use cinema
+>> To show databases
+db
+>> To see collections
+show collections
+>> To create collections
+db.createcollection("movies") 
+>> To drop collections
+Syntax: db.<collection name>.drop
+UseCase: db.mycollection.drop
+>>mongo restart
+sudo service mongodb reload/restart
+>> To see mongo running instances
+sudo lsof -iTCP -sTCP:LISTEN -n -P
+>> To kill a process
+sudo kill <pid>
+>> To setup to different port
+mongod --port 27080
+
+======================================================================
+Uninstallation steps
+======================================================================
+>>Type the following commands one by one to uninstall MongoDB:
+
+>>Stop MongoDB process:
+sudo service mongod stop
+
+>>Completely remove the installed MongoDB packages:
+sudo apt-get purge mongodb-org*
+
+>>Remove the data directories, MongoDB database(s), and log files:
+sudo rm -r /var/log/mongodb /var/lib/mongodb
+
+>>To check if MongoDB is successfully uninstalled, type:
+service mongod status
+
+-----------------------------------------------------------------------
+
+Note : If you have already installed mongodb please remove all those before you install mongodb-org since it may cause some issues during installation :
+
+sudo apt purge mongodb-*
+dpkg -l | grep mongo
+ii  mongo-tools
+sudo apt purge mongo-tools
+sudo dpkg --remove --force-remove-reinstreq mongo-tools
+sudo dpkg --remove --force-remove-reinstreq mongodb-server-core
+sudo apt-get --fix-broken install
+sudo apt autoremove
+sudo rm /lib/systemd/system/mongod.service
+sudo rm -r /var/lib/mongodb
+sudo rm -r /var/log/mongodb
+which mongo
+sudo rm -rf <path of mongo> 
+
+>> search name with mongo in all filesystem
+ls */mongo*
+>> sudo rm -rf <file location>
+
+==============================================================================
+
+latest version of mongo 5.0
+
+cd ~
+sudo apt update
+wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+mongod --version
+mkdir -p ~/data/db
+sudo mongod --dbpath ~/data/db
+ps -e | grep 'mongod'
+
+curl https://raw.githubusercontent.com/mongodb/mongo/master/debian/init.d | sudo tee /etc/init.d/mongodb >/dev/null
+sudo chmod +x /etc/init.d/mongodb
+sudo service mongodb status
+sudo service mongodb start
+sudo service mongodb stop
+mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+
+

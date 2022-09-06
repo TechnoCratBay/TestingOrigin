@@ -1,0 +1,56 @@
+What is Docker?
+Docker is a platform used to containerize your software,using which you can easily build your application, 
+the package than with the dependencies required for your application into the container and further, 
+these containers are easily shipped to run on other machines. 
+Docker is simplifying the DevOps methodology by allowing developers to create templates called images 
+using which u can create the lightweight, a virtual machine called a container.  
+
+Docker is making things easier for software industries giving them the capabilities to automate the infrastructure, 
+isolate the application, maintain consistency and improve resource utilization.
+
+What is Kubernetes?
+Kubernetes is a container management system developed in the Google platform. 
+It helps you to manage a containerized application in various types of physical, virtual, and cloud environments. 
+Google Kubernetes is a highly flexible tool to deliver even complex applications consistently. 
+Applications run on clusters of 100 to 1000 of individual services.
+
+Key Feature of Kubernetes:
+It has a tremendous amount of features which are as follows.
+
+Runs everywhere: It is an open-source tool and gives you the freedom to take advantage of on-premises, Public & hybrid cloud infrastructure letting you move your workload to anywhere you want.
+Automation:  For instance, Kubernetes will control for you with servable host the container how it will be launched.
+Interaction: Kubernetes is able to manage more clusters at the same time. & It allows not only horizontal even vertical scaling also.
+Additional services: It provides additional features as well as the management of containers, Kubernetes offers security networking & storage services.
+self-monitoring: It also gives you a provision of self-monitoring as it constantly checks the health of nodes and the container itself.
+
+>> To create a pod with name nginx and image of nginx
+kubectl run nginx --image=nginx
+
+>> To describe a pod 
+kubectl describe pod <pod name>
+
+>> To edit the image in a pod
+kubectl edit pod redis
+
+>> To create replicasets,  create a replicaset-definition-1.yaml file , then run command , which picks the replicaset.yaml file 
+kubectl create -f /root/replicaset-definition-1.yaml
+
+>> To create a service, create a yaml file as below , and then run the command kubectl apply -f /root/service-definition-1.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 8080
+      port: 8080
+      nodePort: 30080
+  selector:
+    name: simple-webapp
+---
+ 
+>> run the command kubectl apply -f /root/service-definition-1.yaml afterwards
+
+

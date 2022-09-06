@@ -1,0 +1,55 @@
+>> Download docker
+https://docs.docker.com/desktop/install/ubuntu/
+
+>> Start docker service 
+sudo service docker start
+=================================================
+>> Create a Dockerfile	
+mkdir MyDockerImages
+cd MyDockerImages
+touch Dockerfile
+nano Dockerfile
+----------
+Dockerfile
+----------
+FROM ubuntu
+MAINTAINER abhishek
+RUN apt-get update
+CMD ["echo", "Hello World"]
+=====================================================
+>> Build a Docker Image with Dockerfile 
+>> The basic syntax used to build an image using a Dockerfile is:
+docker build [OPTIONS] PATH | URL | -
+
+>> To build a docker image, you would therefore use:
+docker build [location of your dockerfile]
+
+>> If you are already in the directory where the Dockerfile is located, put a . instead of the location:
+docker build .
+
+>> By adding the -t flag, you can tag the new image with a name which will help you when dealing with multiple images:
+docker build -t my_first_image .
+
+>> docker run containers
+docker run --name test my_first_image
+
+>> Docker push images in Jfrog artifactory :
+docker pull mysql:8.0.29
+docker tag mysql:8.0.29 docker.avl.com/avl/tfms/mysql:8.0.29
+docker push docker.avl.com/avl/tfms/mysql:8.0.29
+
+>> docker remove images
+docker rmi <imagename>
+
+>> docker remove containers
+docker rm <containername>
+docker system prune -y
+
+>> ignore files and folders during image creation, write file names inside .dockerignore file
+
+>> read articles on docker
+https://www.educba.com/dockerfile/
+>> TFS Docker file
+https://tfs.avl.com/IM-Dev/TFMS/_versionControl?path=%24%2FTFMS%2FSource%2FServicing%2F1R10.x%2F1R10.6%2FTFMS%20WebUI%201.0%2Fpackage.json&version=T
+	
+

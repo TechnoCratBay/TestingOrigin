@@ -1,0 +1,4 @@
+Process from helm creation to deployment
+1) Git Repository is cloned
+2) Helm is created and is checked into the git branch
+3) Release is created and through release pipeline all the builds docker image get pushed to JFrog and helm installs the pods at Rancher.

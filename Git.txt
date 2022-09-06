@@ -1,0 +1,23 @@
+>> To upload any folder in git repository, change directory to the folder path
+cd <folder Path>
+>> Initialise .git in any folder
+git init
+>> to push the changes over git hub , first we need to stage the changes, we can use either the command or through the git panel
+git add .
+or 
+git add -A
+> The above commands add all the files for staging , we can also add a particular files
+>> To commit 
+git commit -m "initial commit"
+>>To set remote so to connect front end to remote repository
+git remote add origin <link of the remote branch> 
+>> To push changes in the remote repository
+git push origin master
+=======================
+>> To merge branch with main , checkout to main branch and merge the other branch
+git checkout main
+git merge <branch to be merged >
+>> to pull and merge the changes in the local folder
+git pull
+>> to pull the changes and dont merge in the local folder 
+git fetch

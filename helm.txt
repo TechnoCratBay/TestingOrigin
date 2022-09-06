@@ -1,0 +1,88 @@
+==========================================================
+Process from helm creation to deployment
+----------------------------------------------------------
+1) Git Repository is cloned
+2) Helm is created and is checked into the git branch
+3) Release is created and through release pipeline all the builds docker image get pushed to JFrog and helm installs the pods at Rancher.
+==========================================================
+Kubectl Installation
+----------------------------------------------------------
+Step 1: Download the latest release with the command
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+Step 2: Download the kubectl checksum file
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+
+Step 3: Validate the kubectl binary against the checksum file
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+Step 4: Install kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+Step 5: Test to ensure the version you installed is up-to-date
+kubectl version --client --output=yaml 
+
+==========================================================
+Helm Installation on wsl
+----------------------------------------------------------
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+
+==========================================================
+Establish connection through config file with megatron
+----------------------------------------------------------
+>>download kubeconfig file of megatron and paste the location of the file below
+export KUBECONFIG=/mnt/c/Users/username/.kube/config
+
+==========================================================
+To Delete existing Pods over Namespace
+----------------------------------------------------------
+>> to get all the pods
+kubectl get pods -n ab-temp
+>> to list pods
+helm list -n ab-temp
+>> to uninstall ab-temp-git pods
+helm uninstall ab-temp-git -n ab-temp
+>> to uninstall keycloak pods
+helm uninstall keycloak -n ab-temp
+
+==========================================================
+Deployment of Helm over a namespace
+----------------------------------------------------------
+>>Syntax : 
+helm upgrade [RELEASE] [CHART] [flags]
+>>Usage Example :
+helm upgrade release01 . -n ab-temp
+>>where,
+1)release01 = arbitary release name
+2)-n = namespace flag
+3)ab-temp = namespace over rancher
+>>to debug
+helm upgrade --install testname . -n ab-temp --debug
+>>to check deployments
+kubectl get pods -n ab-temp
+
+==========================================================
+Links
+----------------------------------------------------------
+>> Helm install 
+https://helm.sh/docs/helm/helm_install/
+>> reference of changes in apigateway-deploy
+
+>> to get name of all deployments
+kubectl get deployments -n ab-temp
+>> to get name of all pods over rancher
+kubectl get pods -n ab-temp
+
+==========================================================
+Learning Points :
+----------------------------------------------------------
+>> apiVersion has changed in apigateway-deploy.yml
+#apiVersion: extensions/v1beta1    #old deprecated version
+apiVersion: networking.k8s.io/v1   #new version
+>> view all the changes in apiVersion
+https://kubernetes.io/docs/reference/using-api/deprecation-guide/
+
+
+

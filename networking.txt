@@ -1,0 +1,10 @@
+>> Local host (127.0.0.1)
+>> What is localhost and where can I access it?
+
+Localhost is the url on a computer that points to itself. The computer does not need the internet for the address to work since it only checks on itself.
+To access localhost, you write localhost or 127.0.0.1 on the browser.
+When you try to access localhost now, you will find nothing there. 
+or see default apache page(if apache is installed).
+You need to host a html file on a server(on your computer) that serves a page on localhost.
+
+>> 

@@ -1,0 +1,3 @@
+To get items from web 
+$filepath= Invoke-WebRequest "https://arti.avl.com/artifactory/apc-generic-snapshot-atgrz/apc-cli/"
+

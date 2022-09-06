@@ -1,0 +1,11 @@
+Docker: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\docker.txt
+Git: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\Git.txt 
+Helm: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\helm.txt 
+Kubernetes: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\kubernetes.txt 
+Linux.txt: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\Linux.txt 
+MongoDb: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\Mongodb.txt 
+Networking: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\networking.txt 
+Powershell: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\Powershell.txt 
+Process: file:///C:\Users\u27j40\Desktop\Abhishek\Notepad\devops\Process.txt
+Studio 3T: a29805ca-f49d-46d8-8208-977a78a4c653
+

@@ -1,0 +1,88 @@
+>> dockerfile
+FROM alpine  							==> Pulls image from dockerhub
+RUN apk add --update redis				==> create a container and run the command 
+CMD redis-server						==> deletes previous container and run the command on startup 
+===============================
+>> Port Mapping maps the localhost:8080 and maps to the port inside container
+docker run -p 8080:8080 <imageid>
+> the left is the port ot our computer at localhost:8080 , the right is the port number of container
+>> to enter into a running container we use exec command as
+docker exec -it <container name > sh
+> the sh is the shell command , use to move inside the container and -it is made from -i which is use to make text pretty and -t which is used to tag name
+
+>> by just mentioning name of the services inside docker-compose.yml it automaitically creates a networking between different containers.
+>> an example of docker-compose.yml is below
+version: '3'
+services:
+  redis-server:
+    image: 'redis'
+  node-app:
+    build: .
+    ports:
+       - "4001:8081"
+> here build . signifies that we are not pulling any image rather using Dockerfile inside the current location 
+>> docker-compose up -d , command is used to run the containers in the background
+>> Stop the containers by docker-compose down
+>> docker-compose up --build is to rebuild the container after we have made changes to our images
+>> Restart policy of docker compose, notice double quotes around no ,to signify it is not a boolean false in yaml
+===============================
+restart: always
+restart: "no"
+restart: on-failure
+restart: unless-stopped
+===============================
+>> npm run build
+>> npm run start
+>> npm run test
+===============================
+>> To build an image with Docker filename other than Dockerfile we specify -f , for example
+docker build -f <Dockerfile-changed-name> .
+===============================
+>> Docker Volumes
+>> It provides the reference from our container to the local repository so that any changes made to the code are immediately reflected and we dont have to rebuild images and containers
+>> Volume mapping command
+docker run -it -p 8080:8080 -v /app/node_modules -v $(pwd):/app --name <containername> <imagename>
+> pwd signifies present working directory and -v represent volumes , /app signifies the working dorectory inside container, /app/node_modules points to nothing as we have deleted node modules from our working folder
+> : (colon) symbolises connection from container to outside containers , if there isn't any colon it means that it wont be pointing to anything,
+> therefore when we write /app/node_modules it means it wont be referencing to anything outside , if we have deleted our node-modules from the folder.
+>> Any changes made inside app.js are reflected automatically after volume mapping
+================================
+>> build an image, run container and append the command while running the container
+
+docker build <imgname> . 
+docker run -it -d --name <contname> <imgname> npm run test
+
+-d is detached mode where control keeps container running and return to the terminal
+
+================================
+docker-compose.yml
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+================================
+NGINX (https://hub.docker.com/_/nginx/)
+
+Dockerfile:
+
+FROM node:16-alpine as builder 
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx
+COPY --from=builder /app/ /usr/share/nginx/html
+==================================
+
+
+
+
+	  
+

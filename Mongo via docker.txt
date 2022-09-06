@@ -1,0 +1,36 @@
+=========================================================================================
+DockerFile for node
+
+FROM node:12.18.1
+ENV NODE_ENV=production
+WORKDIR /training/Mern/movies-app/server
+COPY ["package.json", "package-lock.json*", "./"]
+RUN npm install --production
+COPY . .
+CMD [ "node", "index.js" ]
+
+>> to build image
+docker build --tag node-docker .
+
+>> to run node container
+docker run -d -p 3000:3000 --name cont-node node-docker
+
+=========================================================================================
+
+Must Read : https://www.howtogeek.com/devops/how-to-run-mongodb-in-a-docker-container/
+
+>> Pull mongo image
+docker pull mongo
+>> Run Container
+docker run -d -p 27017:27017 --name cont-mongodb mongo
+
+>>
+docker logs example-mongo --follow
+
+>> create volumes to store data
+docker run -d -p 27017:27017 --name cont-mongodb -v mongo-data:/data/db mongo
+
+>> execute the container
+docker exec -it cont-mongodb mongo
+
+

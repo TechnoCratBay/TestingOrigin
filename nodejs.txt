@@ -1,0 +1,89 @@
+>> run a js file
+node index.js
+>> run updated js file
+nodemon index.js
+>> list all process in nodejs
+ps -e|grep node
+>> kill process in nodejs
+sudo kill (process id)
+
+=============================================================================================================
+
+>> install node js
+follow this on wsl 2
+
+https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl
+>>switch node 
+nvm use 16.10.0
+nvm use --lts
+
+>>to download from ubuntu
+sudo apt-get update
+sudo apt-get install nodejs
+sudo apt-get install npm
+>> To install nodemon for nodejs
+sudo npm install -g --force nodemon
+>> Check the version of node js 
+nodemon –version
+
+==============================================================================================================
+
+>> uninstall node js
+sudo apt-get purge --auto-remove nodejs
+sudo apt-get remove nodejs
+sudo apt-get remove npm
+
+>>Then go to /etc/apt/sources.list.d and remove any node list if you have. Then do a
+sudo apt-get update
+
+>>Check for any .npm or .node folder in your home folder and delete those. If you type
+which node
+
+>>you can see the location of the node. Try which nodejs and which npm too.
+>>To remove node js, npm and node_modules from Ubuntu,
+>>you need to remove containers also which are at different locations in Ubuntu. 
+>>These could be as:
+>> /usr/local/bin/npm, /usr/local/share/man/man1/node, /usr/local/lib/dtrace/node.d, ~/.npm ~/.node-gyp, /opt/local/bin/node, opt/local/include/node, /opt/local/lib/node_modules
+sudo rm -rf /usr/local/bin/npm /usr/local/share/man/man1/node* /usr/local/lib/dtrace/node.d ~/.npm ~/.node-gyp /opt/local/bin/node opt/local/include/node /opt/local/lib/node_modules
+sudo rm -rf /usr/local/lib/node*
+sudo rm -rf /usr/local/include/node*
+sudo rm -rf /usr/local/bin/node*
+
+===============================================================================================================
+>> Windows doc to install node .. follow these plus download nodemon
+Install nvm, node.js, and npm
+Besides choosing whether to install on Windows or WSL, there are additional choices to make when installing Node.js. We recommend using a version manager as versions change very quickly. You will likely need to switch between multiple versions of Node.js based on the needs of different projects you're working on. Node Version Manager, more commonly called nvm, is the most popular way to install multiple versions of Node.js. We will walk through the steps to install nvm and then use it to install Node.js and Node Package Manager (npm). There are alternative version managers to consider as well covered in the next section.
+
+Important
+
+It is always recommended to remove any existing installations of Node.js or npm from your operating system before installing a version manager as the different types of installation can lead to strange and confusing conflicts. For example, the version of Node that can be installed with Ubuntu's apt-get command is currently outdated. For help with removing previous installations, see How to remove nodejs from ubuntu.)
+
+Open your Ubuntu command line (or distribution of your choice).
+
+Install cURL (a tool used for downloading content from the internet in the command-line) with: sudo apt-get install curl
+
+Install nvm, with: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+ Note
+
+As of January 25, 2022, NVM v0.39.1 is the most recent version available. You can check the GitHub project page for the latest release of NVM, and adjust the above command to include the newest version. Installing the newer version of NVM using cURL will replace the older one, leaving the version of Node you've used NVM to install intact. For example: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+To verify installation, enter: command -v nvm ...this should return 'nvm', if you receive 'command not found' or no response at all, close your current terminal, reopen it, and try again. Learn more in the nvm github repo.
+
+List which versions of Node are currently installed (should be none at this point): nvm ls
+
+NVM list showing no Node versions
+
+Install both the current and stable LTS versions of Node.js. In a later step, you'll learn how to switch between active versions of Node.js with an nvm command.
+
+Install the current stable LTS release of Node.js (recommended for production applications): nvm install --lts
+Install the current release of Node.js (for testing latest Node.js features and improvements, but more likely to have issues): nvm install node
+List what versions of Node are installed: nvm ls ...now you should see the two versions that you just installed listed.
+
+NVM list showing LTS and Current Node versions
+
+Verify that Node.js is installed and the currently default version with: node --version. Then verify that you have npm as well, with: npm --version (You can also use which node or which npm to see the path used for the default versions).
+
+To change the version of Node.js you would like to use for a project, create a new project directory mkdir NodeTest, and enter the directory cd NodeTest, then enter nvm use node to switch to the Current version, or nvm use --lts to switch to the LTS version. You can also use the specific number for any additional versions you've installed, like nvm use v8.2.1. (To list all of the versions of Node.js available, use the command: nvm ls-remote).
+
+If you are using NVM to install Node.js and NPM, you should not need to use the SUDO command to install new packages.
